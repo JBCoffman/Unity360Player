@@ -17,4 +17,4 @@ UserSettings/
 *.apk
 *.aab
 # Ignore large video files
-Assets/StreamingAssets/*.mp4
+/Assets/StreamingAssets/
