@@ -1,23 +1,33 @@
 using UnityEngine;
+using RenderHeads.Media.AVProVideo;
 
 public class SimpleMouseLook : MonoBehaviour
 {
-    // Controls how fast the camera moves with the mouse. Adjust in Inspector.
     [Header("Mouse Settings")]
     [Range(0.1f, 20f)]
     public float sensitivity = 5.0f;
 
-    // Whether the mouse should start locked on launch.
+    [Header("Zoom Settings")]
+    [Range(1f, 179f)]
+    public float minFOV = 30f;
+    public float maxFOV = 90f;
+    public float zoomSpeed = 10f;
+
+    [Header("Control Settings")]
     public bool lockOnStart = true;
 
-    // Internals
+    [Header("Optional AVPro")]
+    public MediaPlayer mediaPlayer;  // Drag your AVPro MediaPlayer here
+
     private bool cursorLocked = false;
     private float rotationX = 0f;
     private float rotationY = 0f;
+    private Camera cam;
 
     void Start()
     {
-        // Optionally lock the mouse on start
+        cam = Camera.main;
+
         if (lockOnStart)
         {
             LockCursor();
@@ -32,11 +42,11 @@ public class SimpleMouseLook : MonoBehaviour
         {
             RotateWithMouse();
         }
+
+        HandleZoom();
+        HandlePlaybackToggle();
     }
 
-    /// <summary>
-    /// Handles ESC to unlock and left-click to re-lock
-    /// </summary>
     void HandleMouseLockToggle()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -50,9 +60,6 @@ public class SimpleMouseLook : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Handles horizontal and vertical rotation while mouse is locked
-    /// </summary>
     void RotateWithMouse()
     {
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
@@ -60,16 +67,38 @@ public class SimpleMouseLook : MonoBehaviour
 
         rotationY += mouseX;
         rotationX -= mouseY;
-
-        // Prevent flipping over top/bottom
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0f);
     }
 
-    /// <summary>
-    /// Locks and hides the mouse
-    /// </summary>
+    void HandleZoom()
+    {
+        if (cam == null) return;
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0f)
+        {
+            cam.fieldOfView -= scroll * zoomSpeed;
+            cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, minFOV, maxFOV);
+        }
+    }
+
+    void HandlePlaybackToggle()
+    {
+        if (mediaPlayer != null && Input.GetKeyDown(KeyCode.Space))
+        {
+            if (mediaPlayer.Control.IsPlaying())
+            {
+                mediaPlayer.Pause();
+            }
+            else
+            {
+                mediaPlayer.Play();
+            }
+        }
+    }
+
     void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -77,9 +106,6 @@ public class SimpleMouseLook : MonoBehaviour
         cursorLocked = true;
     }
 
-    /// <summary>
-    /// Unlocks and shows the mouse
-    /// </summary>
     void UnlockCursor()
     {
         Cursor.lockState = CursorLockMode.None;

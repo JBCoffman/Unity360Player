@@ -321,8 +321,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a3bc3982e7e234ba13e03c6c6120e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 20
+  sensitivity: 6
+  minFOV: 10
+  maxFOV: 90
+  zoomSpeed: 50
   lockOnStart: 1
+  mediaPlayer: {fileID: 0}
 --- !u!1 &1052149544
 GameObject:
   m_ObjectHideFlags: 0
