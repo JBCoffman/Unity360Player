@@ -42,9 +42,28 @@ public class SimpleMouseLook : MonoBehaviour
         {
             RotateWithMouse();
         }
-
+        //Zoom in/out 
         HandleZoom();
+        //Spacebar for pause/resume 
         HandlePlaybackToggle();
+        if (mediaPlayer != null)
+{
+    // ⬅ Skip backward 3 seconds
+    if (Input.GetKeyDown(KeyCode.LeftArrow))
+    {
+        double newTime = mediaPlayer.Control.GetCurrentTime() - 3.0;
+        mediaPlayer.Control.Seek(Mathf.Max(0f, (float)newTime));
+    }
+
+    // ➡ Skip forward 3 seconds
+    if (Input.GetKeyDown(KeyCode.RightArrow))
+    {
+        double newTime = mediaPlayer.Control.GetCurrentTime() + 3.0;
+        double duration = mediaPlayer.Info.GetDuration();
+        mediaPlayer.Control.Seek((float)Mathf.Min((float)newTime, (float)duration));
+    }
+}
+
     }
 
     void HandleMouseLockToggle()

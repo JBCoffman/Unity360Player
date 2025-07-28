@@ -326,7 +326,7 @@ MonoBehaviour:
   maxFOV: 90
   zoomSpeed: 50
   lockOnStart: 1
-  mediaPlayer: {fileID: 0}
+  mediaPlayer: {fileID: 1052149547}
 --- !u!1 &1052149544
 GameObject:
   m_ObjectHideFlags: 0
