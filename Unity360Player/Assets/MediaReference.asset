@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _alias: 
   _mediaPath:
-    _pathType: 0
-    _path: C:/Users/jbcof/OneDrive/Desktop/DavinciOut/JapanComboTest.mp4
+    _pathType: 2
+    _path: 
   _hints:
     transparency: 0
     alphaPacking: 0

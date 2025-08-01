@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mediaSource: 0
-  _mediaReference: {fileID: 11400000, guid: 54f3fd4e9bd8b7149b7b2ea1c4066f04, type: 2}
+  _mediaReference: {fileID: 0}
   _mediaPath:
     _pathType: 2
     _path: SisteneChapel.mp4
@@ -480,8 +480,8 @@ MonoBehaviour:
     transparency: 0
     alphaPacking: 0
     stereoPacking: 0
-  _autoOpen: 1
-  _autoPlayOnStart: 1
+  _autoOpen: 0
+  _autoPlayOnStart: 0
   _loop: 0
   _audioVolume: 1
   _audioBalance: 0
@@ -851,6 +851,51 @@ MonoBehaviour:
   _texturePropertyName: _MainTex
   _offset: {x: 0, y: 0}
   _scale: {x: 1, y: 1}
+--- !u!1 &1432234678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1432234680}
+  - component: {fileID: 1432234679}
+  m_Layer: 0
+  m_Name: FileBrowserManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1432234679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432234678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c94f4e2d7d3b7419ce0ba3524a77f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mediaPlayer: {fileID: 1052149547}
+--- !u!4 &1432234680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432234678}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1952746684
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,3 +936,4 @@ SceneRoots:
   - {fileID: 1052149548}
   - {fileID: 1327539396}
   - {fileID: 1952746685}
+  - {fileID: 1432234680}
