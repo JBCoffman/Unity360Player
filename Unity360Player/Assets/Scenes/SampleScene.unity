@@ -877,7 +877,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1432234678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c94f4e2d7d3b7419ce0ba3524a77f9, type: 3}
+  m_Script: {fileID: 11500000, guid: c61f341b527edc84586c31227a327dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mediaPlayer: {fileID: 1052149547}

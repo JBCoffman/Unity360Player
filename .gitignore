@@ -18,5 +18,3 @@ UserSettings/
 *.aab
 # Ignore large video files
 /Assets/StreamingAssets/
-# Ignore File Browser Plugin
-Assets/Plugins/UnityStandaloneFileBrowser-master/
