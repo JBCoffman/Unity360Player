@@ -118,14 +118,14 @@ public class SimpleMouseLook : MonoBehaviour
         }
     }
 
-    void LockCursor()
+    public void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         cursorLocked = true;
     }
 
-    void UnlockCursor()
+    public void UnlockCursor()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

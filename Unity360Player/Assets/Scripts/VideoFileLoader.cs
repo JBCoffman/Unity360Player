@@ -7,6 +7,13 @@ public class VideoFileLoader : MonoBehaviour
 {
     public MediaPlayer mediaPlayer;
 
+    private SimpleMouseLook _mouseLook;
+
+    private void Start()
+    {
+        _mouseLook = FindObjectOfType<SimpleMouseLook>();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.B))
@@ -17,25 +24,36 @@ public class VideoFileLoader : MonoBehaviour
 
     private void OpenVideoFile()
     {
-        // Unlock cursor so the user can interact with the file dialog
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        // Fix #2: null guard — fail loudly in editor, silently in build
+        if (mediaPlayer == null)
+        {
+            Debug.LogError("VideoFileLoader: mediaPlayer is not assigned.");
+            return;
+        }
+
+        // Fix #1: coordinate cursor unlock through SimpleMouseLook so its internal state stays in sync
+        bool wasLocked = _mouseLook != null && Cursor.lockState == CursorLockMode.Locked;
+        if (_mouseLook != null)
+            _mouseLook.UnlockCursor();
 
         ExtensionFilter[] extensions = new ExtensionFilter[2]
         {
-            new ExtensionFilter("Video Files", "mp4", "mov", "avi", "mkv"),
+            new ExtensionFilter("Video Files", "mp4", "mov", "avi"),
             new ExtensionFilter("All Files", "*")
         };
-        string[] array = StandaloneFileBrowser.OpenFilePanel("Open Video File", "", extensions, multiselect: false);
-        if (array.Length != 0 && File.Exists(array[0]))
+        string[] result = StandaloneFileBrowser.OpenFilePanel("Open Video File", "", extensions, multiselect: false);
+
+        if (result.Length != 0 && File.Exists(result[0]))
         {
-            string text = array[0];
-            Debug.Log("Selected video path: " + text);
-            mediaPlayer.OpenMedia(MediaPathType.AbsolutePathOrURL, text);
+            Debug.Log("VideoFileLoader: loading " + result[0]);
+            mediaPlayer.OpenMedia(MediaPathType.AbsolutePathOrURL, result[0]);
+
+            // Fix #3: play immediately after loading
+            mediaPlayer.Play();
         }
 
-        // Re-lock cursor after dialog closes
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Fix #1: restore cursor to its pre-dialog state
+        if (_mouseLook != null && wasLocked)
+            _mouseLook.LockCursor();
     }
 }
